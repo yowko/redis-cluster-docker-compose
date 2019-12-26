@@ -1,0 +1,7 @@
+FROM redis:5.0.3-alpine3.9
+LABEL maintainer="Yowko Tsai <yowko@yowko.com>"
+ARG port=6379
+EXPOSE 7000-7005 17000-17005
+COPY rediscluster.conf /etc/redis/rediscluster.conf
+RUN sed -i "s/6379/$port/g" /etc/redis/rediscluster.conf
+ENTRYPOINT redis-server /etc/redis/rediscluster.conf
